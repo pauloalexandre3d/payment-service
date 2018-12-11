@@ -114,5 +114,5 @@ Make a GET operation to http://localhost:8080/payment/{paymentId}/status to get 
 ## Considerations
 
 - Some requirements validations are applied using javax.validation.ConstraintValidator. 
-- There is a special validator to CreditCard, it is called CreditCardNumberValidator. 
+- There is a special validator to CreditCard, it is called CreditCardNumberValidator. It is using "br.com.moip.credit-card-validator" artifact. 
 - Using MongoDB embeded, the application is going to download while running application.
