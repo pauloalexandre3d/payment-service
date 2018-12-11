@@ -50,7 +50,7 @@ public class CreditCardTest {
 		assertEquals(1, violations.stream()
 				.filter(viol -> viol.getMessage().equals("Credit Card number must not be null.")).count());
 		assertEquals(1, violations.stream()
-				.filter(viol -> viol.getMessage().equals("Credit card is not valid.")).count());
+				.filter(viol -> viol.getMessage().equals("Credit card number is not valid.")).count());
 	}
 
 	@Test
@@ -62,7 +62,7 @@ public class CreditCardTest {
 		assertEquals(1, violations.stream()
 				.filter(viol -> viol.getMessage().equals("Credit Card number must not be empty.")).count());
 		assertEquals(1, violations.stream()
-				.filter(viol -> viol.getMessage().equals("Credit card is not valid.")).count());
+				.filter(viol -> viol.getMessage().equals("Credit card number is not valid.")).count());
 	}
 	
 	@Test

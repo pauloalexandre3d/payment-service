@@ -157,7 +157,7 @@ public class PaymentTest {
         payment.getCreditCard().setNumber("1234123412341234");
         Set<ConstraintViolation<CreditCard>> violations = validator.validate(payment.getCreditCard());
         assertTrue(violations.size() == 1);
-        assertTrue(violations.iterator().next().getMessage().equals("Credit card is not valid."));
+        assertTrue(violations.iterator().next().getMessage().equals("Credit card number is not valid."));
     }
     
     @Test

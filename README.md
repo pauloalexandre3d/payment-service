@@ -41,6 +41,16 @@ Please access the http://localhost:8080/swagger-ui.html for running manual tests
 
 You can use the Postman collection, available in postman folder.
 
+## Running the application with Docker
+
+You can running the application with Docker.
+So, you need build the image:
+
+> docker build -t payment-service .
+
+And you can run the container like this:
+
+>docker run -p 8080:8080 payment-service:latest
 
 ### API
 

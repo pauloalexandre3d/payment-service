@@ -56,7 +56,7 @@ public class PaymentServiceApplicationTests {
 				+ "	\"buyer\": {\n" + "		\"name\": \"Paulo Machado\",\n"
 				+ "		\"email\": \"paulomachado@project.com\",\n" + "		\"cpf\": \"46434925034\"\n" + "	},\n"
 				+ "	\"amount\": 100,\n" + "	\"type\": \"CREDIT_CARD\",\n" + "	\"creditCard\": {\n"
-				+ "		\"holderName\": \"Paulo Machado\",\n" + "		\"number\": \"1111 2222 3333 4444\",\n"
+				+ "		\"holderName\": \"Paulo Machado\",\n" + "		\"number\": \"5131778903563981\",\n"
 				+ "		\"expirationDate\": \"2022-09\",\n" + "		\"cvv\": \"123\"\n" + "	}\n" + "}";
 		MvcResult mvcResult = mvc
 				.perform(post("/payment").contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -88,7 +88,7 @@ public class PaymentServiceApplicationTests {
 		MvcResult mvcResult = mvc.perform(
 				get("/payment/{paymentId}/status", paymentSaved.getId()).accept(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk()).andReturn();
-		assertThat(mvcResult.getResponse().getContentAsString(), containsString("5131 7789 0356 3981"));
+		assertThat(mvcResult.getResponse().getContentAsString(), containsString("5131778903563981"));
 		assertThat(mvcResult.getResponse().getContentAsString(), containsString("APPROVED"));
 	}
 
@@ -96,7 +96,7 @@ public class PaymentServiceApplicationTests {
 	public void testShouldCreatePaymentWithCreditCardWithoutBuyer() throws Exception {
 		String request = "{\n" + "	\"client\": {\n" + "		\"id\": \"123456789\"\n" + "	},\n"
 				+ "	\"amount\": 100,\n" + "	\"type\": \"CREDIT_CARD\",\n" + "	\"creditCard\": {\n"
-				+ "		\"holderName\": \"Paulo Machado\",\n" + "		\"number\": \"1111 2222 3333 4444\",\n"
+				+ "		\"holderName\": \"Paulo Machado\",\n" + "		\"number\": \"5131778903563981\",\n"
 				+ "		\"expirationDate\": \"2022-09\",\n" + "		\"cvv\": \"123\"\n" + "	}\n" + "}";
 		mvc.perform(post("/payment").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.accept(MediaType.APPLICATION_JSON_VALUE).content(request)).andExpect(status().isBadRequest())
@@ -108,7 +108,7 @@ public class PaymentServiceApplicationTests {
 		String request = "{\n" + "	\"client\": {\n" + "		\"id\": \"123456789\"\n" + "	},\n"
 				+ "	\"buyer\": {\n" + "		\"email\": \"paulomachado@project.com\",\n" + "		\"cpf\": \"46434925034\"\n" + "	},\n"
 				+ "	\"amount\": 100,\n" + "	\"type\": \"CREDIT_CARD\",\n" + "	\"creditCard\": {\n"
-				+ "		\"holderName\": \"Paulo Machado\",\n" + "		\"number\": \"1111 2222 3333 4444\",\n"
+				+ "		\"holderName\": \"Paulo Machado\",\n" + "		\"number\": \"5131778903563981\",\n"
 				+ "		\"expirationDate\": \"2022-09\",\n" + "		\"cvv\": \"123\"\n" + "	}\n" + "}";
 		mvc.perform(post("/payment").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.accept(MediaType.APPLICATION_JSON_VALUE).content(request)).andExpect(status().isBadRequest())
@@ -124,7 +124,7 @@ public class PaymentServiceApplicationTests {
 	private Payment getPaymentDummy() {
 		Client client = new Client("123456789");
 		Buyer buyer = new Buyer("paulo machado", "paulomachado@project.com", "46434925034");
-		CreditCard creditCard = new CreditCard("paulo machado", "5131 7789 0356 3981", "08/2022", "736");
+		CreditCard creditCard = new CreditCard("paulo machado", "5131778903563981", "08/2022", "736");
 		Payment payment = new Payment(null, 100.1, Payment.PaymentType.CREDIT_CARD, client, buyer, creditCard,
 				PaymentStatus.APPROVED);
 		return payment;
