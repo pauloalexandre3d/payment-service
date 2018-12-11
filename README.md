@@ -115,3 +115,4 @@ Make a GET operation to http://localhost:8080/payment/{paymentId}/status to get 
 
 - Some requirements validations are applied using javax.validation.ConstraintValidator. 
 - There is a special validator to CreditCard, it is called CreditCardNumberValidator. 
+- Using MongoDB embeded, the application is going to download while running application.
