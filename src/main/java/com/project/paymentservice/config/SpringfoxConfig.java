@@ -35,10 +35,10 @@ public class SpringfoxConfig {
 
     @Bean
     public UiConfiguration uiConfig() {
-        return UiConfiguration.DEFAULT;
+        return new UiConfiguration("/payment");
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Payment Application").version("0.0.1").build();
+        return new ApiInfoBuilder().title("Payment Process Application").version("0.0.1").build();
     }
 }

@@ -1,6 +1,7 @@
 package com.project.paymentservice.controller;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -24,7 +25,9 @@ import com.project.paymentservice.domain.Client;
 import com.project.paymentservice.domain.CreditCard;
 import com.project.paymentservice.domain.Payment;
 import com.project.paymentservice.domain.Payment.PaymentStatus;
+import com.project.paymentservice.exception.PaymentNonexistentException;
 import com.project.paymentservice.repository.Payments;
+
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
@@ -66,6 +69,7 @@ public class PaymentControllerTest {
     
     @Test
 	public void testShouldGetStatusByPaymentId() throws Exception {
+    	when(payments.findById(any(String.class))).thenReturn( Optional.of(getDummyPayment()));
     	 ResponseEntity<Optional<Payment>> responseEntity = paymentRest.getStatusByPaymentId("1111111");
          verify(payments, times(1)).findById(paymentIdArgumentCaptor.capture());
          assertEquals("1111111", paymentIdArgumentCaptor.getValue());
@@ -75,12 +79,18 @@ public class PaymentControllerTest {
     private void verifyPayment(Payment paymentCaptured, Payment payment){
         assertEquals(payment, paymentCaptured);
     }
+    
+    @Test(expected = PaymentNonexistentException.class)
+	public void testShouldReceiveNotFoundWhenGetStatusByPaymentNotExists() throws Exception {
+    	when(payments.findById(any(String.class))).thenReturn(Optional.empty());
+		paymentRest.getStatusByPaymentId("abobora");
+	}
 
     private Payment getDummyPayment(){
     	Client client = new Client("123456789");
 		Buyer buyer = new Buyer("paulo machado", "paulomachado@project.com", "46434925034");
 		CreditCard creditCard = new CreditCard("paulo machado", "5131 7789 0356 3981", "08/2022", "736");
-		Payment payment = new Payment(null, 100.1, Payment.PaymentType.CREDIT_CARD, client, buyer, creditCard, PaymentStatus.APPROVED);
+		Payment payment = new Payment(new ObjectId(), 100.1, Payment.PaymentType.CREDIT_CARD, client, buyer, creditCard, PaymentStatus.APPROVED);
 		return payment ;
     }
 }

@@ -10,37 +10,23 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.project.paymentservice.exception.PaymentNonexistentException;
 
 @ControllerAdvice
 public class CustomExceptionHandler {
 
-//    @ExceptionHandler(UserAlreadyRegisteredException.class)
-//    @ResponseStatus(HttpStatus.FORBIDDEN)
-//    @ResponseBody
-//    public ErrorResponse handleUserAlreadyRegisteredException(UserAlreadyRegisteredException ex) {
-//        return createErrorResponse(ex.getMessage());
-//    }
-//
-//    @ExceptionHandler(UsernameAlreadyRegisteredException.class)
-//    @ResponseStatus(HttpStatus.FORBIDDEN)
-//    @ResponseBody
-//    public ErrorResponse handleUsernameAlreadyRegisteredException(UsernameAlreadyRegisteredException ex) {
-//        return createErrorResponse(ex.getMessage());
-//    }
-//
-//    @ExceptionHandler(UserBlacklistedException.class)
-//    @ResponseStatus(HttpStatus.FORBIDDEN)
-//    @ResponseBody
-//    public ErrorResponse handleUserBlacklistedException(UserBlacklistedException ex) {
-//        return createErrorResponse(ex.getMessage());
-//    }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+	@ExceptionHandler(PaymentNonexistentException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ResponseBody
+	public ErrorResponse handlePaymentNonexistentException(PaymentNonexistentException ex) {
+		return createErrorResponse(ex.getMessage());
+	}
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public List<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-    	return ex
+        return ex
                 .getBindingResult()
                 .getFieldErrors()
                 .stream()
@@ -48,15 +34,8 @@ public class CustomExceptionHandler {
                 .collect(Collectors.toList());
     }
 
-    @ExceptionHandler(InvalidFormatException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    public ErrorResponse handleInvalidFormatException(InvalidFormatException ex) {
-        return createErrorResponse(ex.getOriginalMessage());
-    }
-
-    private ErrorResponse createErrorResponse(String message) {
-        return new ErrorResponse(message);
-    }
+	private ErrorResponse createErrorResponse(String message) {
+		return new ErrorResponse(message);
+	}
 
 }

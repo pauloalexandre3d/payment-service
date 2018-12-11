@@ -15,7 +15,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CreditCardNumberContraint {
 
-	String message() default "Credit card is not valid.";
+	String message() default "Credit card number is not valid.";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
     

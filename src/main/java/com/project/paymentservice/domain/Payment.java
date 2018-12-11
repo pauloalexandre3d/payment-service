@@ -1,5 +1,6 @@
 package com.project.paymentservice.domain;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.bson.types.ObjectId;
@@ -8,11 +9,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Document
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Payment {
@@ -30,12 +33,15 @@ public class Payment {
 	private PaymentType type;
 
 	@NotNull(message = CLIENT_NULL_VALIDATION_MESSAGE)
+	@Valid
 	private Client client;
 
 	@NotNull(message = BUYER_NULL_VALIDATION_MESSAGE)
+	@Valid
 	private Buyer buyer;
 
 	@Field(value = "credit_card")
+	@Valid
 	private CreditCard creditCard;
 	
 	private PaymentStatus status;
