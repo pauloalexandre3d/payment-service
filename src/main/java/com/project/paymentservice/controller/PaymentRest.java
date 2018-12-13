@@ -40,7 +40,7 @@ public class PaymentRest {
 			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@PostMapping("/payment")
 	public ResponseEntity<String> create(@RequestBody @Valid Payment payment) {
-		return paymentProcess.process(payment);
+		return ResponseEntity.ok(paymentProcess.process(payment));
 	}
 
 	@ApiOperation(value = "Get payment status by payment id")

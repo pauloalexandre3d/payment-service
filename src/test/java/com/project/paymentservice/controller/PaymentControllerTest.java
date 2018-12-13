@@ -55,7 +55,7 @@ public class PaymentControllerTest {
 		Payment dummyPaymentSaved = dummyPayment;
     	dummyPaymentSaved.setId(new ObjectId());
     	
-    	when(paymentProcess.process(dummyPayment)).thenReturn(ResponseEntity.ok(dummyPayment.getId().toString()));
+    	when(paymentProcess.process(dummyPayment)).thenReturn(dummyPayment.getId().toString());
         
     	ResponseEntity<String> responseEntity = paymentRest.create(dummyPayment);
 
@@ -69,7 +69,7 @@ public class PaymentControllerTest {
         Payment dummyPayment = getDummyPayment();
         dummyPayment.setCreditCard(null);
         
-    	when(paymentProcess.process(dummyPayment)).thenReturn(ResponseEntity.ok("123123123123"));
+    	when(paymentProcess.process(dummyPayment)).thenReturn("123123123123");
     	
 		ResponseEntity<String> responseEntity = paymentRest.create(dummyPayment);
 		verify(paymentProcess, times(1)).process(paymentArgumentCaptor.capture());
