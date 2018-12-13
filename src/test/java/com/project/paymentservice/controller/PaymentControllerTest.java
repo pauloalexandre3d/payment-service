@@ -27,6 +27,7 @@ import com.project.paymentservice.domain.Payment;
 import com.project.paymentservice.domain.Payment.PaymentStatus;
 import com.project.paymentservice.exception.PaymentNonexistentException;
 import com.project.paymentservice.repository.Payments;
+import com.project.paymentservice.service.PaymentProcess;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -35,6 +36,9 @@ public class PaymentControllerTest {
 
     @InjectMocks
     PaymentRest paymentRest;
+    
+    @Mock
+    PaymentProcess paymentProcess;
 
     @Mock
     Payments payments;
@@ -50,9 +54,12 @@ public class PaymentControllerTest {
     	Payment dummyPayment = getDummyPayment();
 		Payment dummyPaymentSaved = dummyPayment;
     	dummyPaymentSaved.setId(new ObjectId());
-    	when(payments.save(dummyPayment)).thenReturn(dummyPaymentSaved);
-        ResponseEntity<String> responseEntity = paymentRest.create(dummyPayment);
-        verify(payments, times(1)).save(paymentArgumentCaptor.capture());
+    	
+    	when(paymentProcess.process(dummyPayment)).thenReturn(ResponseEntity.ok(dummyPayment.getId().toString()));
+        
+    	ResponseEntity<String> responseEntity = paymentRest.create(dummyPayment);
+
+    	verify(paymentProcess, times(1)).process(paymentArgumentCaptor.capture());
         verifyPayment(paymentArgumentCaptor.getValue(), dummyPayment);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
@@ -61,8 +68,11 @@ public class PaymentControllerTest {
     public void testShouldCreatePaymentWithSlip(){
         Payment dummyPayment = getDummyPayment();
         dummyPayment.setCreditCard(null);
+        
+    	when(paymentProcess.process(dummyPayment)).thenReturn(ResponseEntity.ok("123123123123"));
+    	
 		ResponseEntity<String> responseEntity = paymentRest.create(dummyPayment);
-        verify(payments, times(1)).save(paymentArgumentCaptor.capture());
+		verify(paymentProcess, times(1)).process(paymentArgumentCaptor.capture());
         verifyPayment(paymentArgumentCaptor.getValue(), dummyPayment);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
