@@ -1,7 +1,6 @@
 package com.project.paymentservice.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Set;
 
@@ -103,6 +102,12 @@ public class CreditCardTest {
 		assertTrue(violations.size() == 1);
 		assertEquals(1, violations.stream()
 				.filter(viol -> viol.getMessage().equals("Credit Card CVV must not be empty.")).count());
+	}
+	
+	@Test
+	public void shouldGetCreditCardBrand() throws Exception {
+		CreditCard creditCardDummy = getCreditCardDummy();
+		assertEquals("MASTERCARD", creditCardDummy.getBrand());
 	}
 	
 	private CreditCard getCreditCardDummy() {

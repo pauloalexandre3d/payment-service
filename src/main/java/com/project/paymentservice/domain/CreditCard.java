@@ -31,4 +31,8 @@ public class CreditCard {
     @Size(min=3, message="Credit Card CVV must not be empty.")
 	private String cvv;
 
+	public String  getBrand() {
+		return new  br.com.moip.validators.CreditCard(this.getNumber()).getBrand().name();
+	}
+
 }
