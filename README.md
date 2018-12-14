@@ -1,4 +1,4 @@
-# Microservice to process payments
+PaymentServiceApplicationTests# Microservice to process payments
 
 ## Overview
 
@@ -24,7 +24,7 @@ List of the technologies, frameworks and tools used:
 ## Tests
 
 The application has unit and integration tests. Both are under the "/src/test" directory.
-The class IntegrationTest.java contains the integration tests and runs Spring Tests for that.
+The class PaymentServiceApplicationTests.java contains the integration tests and runs Spring Tests for that.
 All the other classes are unit tests and uses Mockito for mocking objects.
 Jacoco is configured for tests coverage (configuration can be found in pom.xml) and checks for 100% coverage. You can find the reports on directory "/target/site".
 
