@@ -15,14 +15,15 @@ public class PaymentProcessImpl implements PaymentProcess {
 	
 	private final Payments payments;
 
-	public String process(Payment payment) {
+	public Payment process(Payment payment) {
 	payment.setStatus(PaymentStatus.APPROVED);
 	Payment paymentSaved = payments.save(payment);
 
 	if (payment.getType().equals(PaymentType.SLIP)) {
-		return "1111111 1 2222222 2 333333 3 44444 4";
+		payment.setBarcode("1111111 1 2222222 2 333333 3 44444 4");
+		return payment;
 	} else {
-		return paymentSaved.getId().toString();
+		return paymentSaved;
 	}
 }
 

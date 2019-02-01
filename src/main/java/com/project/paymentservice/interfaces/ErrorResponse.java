@@ -1,4 +1,4 @@
-package com.project.paymentservice.controller;
+package com.project.paymentservice.interfaces;
 
 import java.io.Serializable;
 

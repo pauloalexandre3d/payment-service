@@ -1,4 +1,4 @@
-package com.project.paymentservice.controller;
+package com.project.paymentservice.interfaces;
 
 import java.util.Optional;
 
@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @Api(value = "/payment", consumes = MediaType.APPLICATION_JSON_VALUE)
-public class PaymentRest {
+public class PaymentController {
 
 	private final Payments payments;
 	
@@ -39,7 +39,7 @@ public class PaymentRest {
 			@ApiResponse(code = 409, message = "Conflict with the input provide"),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@PostMapping("/payment")
-	public ResponseEntity<String> create(@RequestBody @Valid Payment payment) {
+	public ResponseEntity<Payment> create(@RequestBody @Valid Payment payment) {
 		return ResponseEntity.ok(paymentProcess.process(payment));
 	}
 

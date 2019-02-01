@@ -45,6 +45,8 @@ public class Payment {
 	private CreditCard creditCard;
 	
 	private PaymentStatus status;
+	
+	private String barcode;
 
 	public enum PaymentType {
 		SLIP, CREDIT_CARD;

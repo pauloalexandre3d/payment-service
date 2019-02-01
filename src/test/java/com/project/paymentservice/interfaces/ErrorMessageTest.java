@@ -1,8 +1,10 @@
-package com.project.paymentservice.controller;
+package com.project.paymentservice.interfaces;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import com.project.paymentservice.interfaces.ErrorResponse;
 
 public class ErrorMessageTest {
 
